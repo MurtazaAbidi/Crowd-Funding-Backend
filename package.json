@@ -1,0 +1,28 @@
+{
+  "name": "crowdfunding-elevate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MurtazaAbidi/Crowd-Funding-Backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MurtazaAbidi/Crowd-Funding-Backend/issues"
+  },
+  "homepage": "https://github.com/MurtazaAbidi/Crowd-Funding-Backend#readme",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  }
+}
