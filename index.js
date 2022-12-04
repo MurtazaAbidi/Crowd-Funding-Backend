@@ -1,95 +1,76 @@
 const express = require("express");
-const cookieParser = require('cookie-parser');
-const indexroutes = require('./routes/index')
-const sqlConn = require('./db/db_connection')
+const cookieParser = require("cookie-parser");
+const indexroutes = require("./routes/index");
+const sqlConn = require("./db/db_connection");
 var cors = require("cors");
 
 const app = express();
-require ('dotenv').config();
+require("dotenv").config();
 
-if (!process.env.jwtPrivateKey){
-    console.error('FATAL ERROR: JWT-Private-Key not defined')
-    process.exit(1);
+if (!process.env.jwtPrivateKey) {
+  console.error("FATAL ERROR: JWT-Private-Key not defined");
+  process.exit(1);
 }
 
-app.use (cookieParser());
+app.use(cookieParser());
 sqlConn.connection
-.connect()
-.then(()=> console.log('Database Connected ...'))
-.catch((err)=> console.error('Connection error', err.stack));
-
-// const corsOptions = {
-//     origin: true, //included origin as true
-//     credentials: true, //included credentials as true
-// };
-
-// app.use(cors(corsOptions));
+  .connect()
+  .then(() => console.log("Database Connected ..."))
+  .catch((err) => console.error("Connection error", err.stack));
 
 const corsOptions = {
-    origin: ["http://localhost:3000"],
-    credentials: true, //access-control-allow-credentials:true
-    optionSuccessStatus: 200,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: [
-      "Content-Type",
-      "Authorization",
-      "Origin",
-      "X-Requested-With",
-      "Accept",
-      "Accept-Language",
-      "Accept-Encoding",
-      "Accept-Charset",
-      "Content-Length",
-      "Access-Control-Allow-Origin",
-      "Access-Control-Allow-Credentials",
-      "Access-Control-Allow-Methods",
-      "Access-Control-Allow-Headers",
-      "Access-Control-Expose-Headers",
-      "Access-Control-Max-Age",
-      "Access-Control-Allow-Credentials",
-    ],
-    exposedHeaders: [
-      "Content-Type",
-      "Authorization",
-      "Origin",
-      "X-Requested-With",
-      "Accept",
-      "Accept-Language",
-      "Accept-Encoding",
-      "Accept-Charset",
-      "Content-Length",
-      "Access-Control-Allow-Origin",
-      "Access-Control-Allow-Credentials",
-      "Access-Control-Allow-Methods",
-      "Access-Control-Allow-Headers",
-      "Access-Control-Expose-Headers",
-      "Access-Control-Max-Age",
-      "Access-Control-Allow-Credentials",
-    ],
-  };
-  app.use(cors(corsOptions));
-// app.use(cors());
+  origin: ["http://localhost:3000"],
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: [
+    "Content-Type",
+    "Authorization",
+    "Origin",
+    "X-Requested-With",
+    "Accept",
+    "Accept-Language",
+    "Accept-Encoding",
+    "Accept-Charset",
+    "Content-Length",
+    "Access-Control-Allow-Origin",
+    "Access-Control-Allow-Credentials",
+    "Access-Control-Allow-Methods",
+    "Access-Control-Allow-Headers",
+    "Access-Control-Expose-Headers",
+    "Access-Control-Max-Age",
+    "Access-Control-Allow-Credentials",
+  ],
+  exposedHeaders: [
+    "Content-Type",
+    "Authorization",
+    "Origin",
+    "X-Requested-With",
+    "Accept",
+    "Accept-Language",
+    "Accept-Encoding",
+    "Accept-Charset",
+    "Content-Length",
+    "Access-Control-Allow-Origin",
+    "Access-Control-Allow-Credentials",
+    "Access-Control-Allow-Methods",
+    "Access-Control-Allow-Headers",
+    "Access-Control-Expose-Headers",
+    "Access-Control-Max-Age",
+    "Access-Control-Allow-Credentials",
+  ],
+};
+app.use(cors(corsOptions));
 app.use(express.json());
-app.use('/api/', indexroutes);
+app.use(express.urlencoded({ extended: false }));
+app.set("view engine", "ejs");
+
+app.use("/api/", indexroutes);
 
 const port = process.env.PORT || 3300;
-app.listen (port, ()=> console.log(`Listening on port ${port} port...`))
+app.listen(port, () => console.log(`Listening on port ${port} port...`));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// JWT TOKEN CREATION AND VERIFICATION 
+// JWT TOKEN CREATION AND VERIFICATION
 // ------------------------------------------------------------------------------------------------------------------
 // const jwt = require("jsonwebtoken");
 // const app = express();
