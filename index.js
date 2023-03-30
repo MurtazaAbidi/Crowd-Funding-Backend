@@ -81,11 +81,13 @@ app.listen(port, () => console.log(`Listening on port ${port} port...`));
 
 // const secretKey = "secretkey";
 
-// app.get("/", (req, res) => {
-//   res.json({
-//     message: "a simple api.",
-//   });
-// });
+// Sample Api ------------------------------------------------------
+app.get("/", (req, res) => {
+  res.json({
+    message: "a simple api.",
+  });
+});
+// Sample Api ------------------------------------------------------
 
 // app.post("/login", (req, res) => {
 //   const user = {
