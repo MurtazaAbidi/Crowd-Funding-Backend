@@ -6,12 +6,12 @@ const campaignerchangepassword = async (changePasswordDetails) => {
     console.log(changePasswordDetails)
     if (!changePasswordDetails.email )throw new Error ('Email cannot be empty')
 
-    const result = await sqlConn.connection.query(`SELECT * FROM users WHERE email LIKE '${changePasswordDetails.email}'`)
+    const result = await sqlConn.connection.query(`SELECT * FROM campaigner WHERE campaigner_email LIKE '${changePasswordDetails.email}'`)
     if (result.rowCount === 0) throw new Error ('Campaigner Does Not Exist.')
 
     else{
 
-        const newSecret = process.env.jwtPrivateKey + result.rows[0].password;
+        const newSecret = process.env.jwtPrivateKey + result.rows[0].campaigner_password;
         try{
             const payload = jwt.verify(changePasswordDetails.token, newSecret)
             // result.render('change-password', {email:changePasswordDetails.email})

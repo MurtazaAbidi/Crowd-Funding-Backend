@@ -19,7 +19,8 @@ sqlConn.connection
   .catch((err) => console.error("Connection error", err.stack));
 
 const corsOptions = {
-  origin: ["http://localhost:3000"],
+  // origin: ["http://localhost:3000"],
+  origin: [`${process.env.IPFRONTEND}`],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
   methods: ["GET", "POST", "PUT", "DELETE"],

@@ -6,12 +6,12 @@ const campaignersubmitchangepassword = async (paramsDetails, changePasswordDetai
     // console.log(changePasswordDetails)
     if (!paramsDetails.email )throw new Error ('Email cannot be empty')
 
-    const result = await sqlConn.connection.query(`SELECT * FROM users WHERE email LIKE '${paramsDetails.email}'`)
+    const result = await sqlConn.connection.query(`SELECT * FROM campaigner WHERE campaigner_email LIKE '${paramsDetails.email}'`)
     if (result.rowCount === 0) throw new Error ('Campaigner Does Not Exist.')
 
     else{
 
-        const newSecret = process.env.jwtPrivateKey + result.rows[0].password;
+        const newSecret = process.env.jwtPrivateKey + result.rows[0].campaigner_password;
         try{
             const payload = jwt.verify(paramsDetails.token, newSecret);
 
@@ -23,7 +23,7 @@ const campaignersubmitchangepassword = async (paramsDetails, changePasswordDetai
 
             const password = await bcrypt.hash(changePasswordDetails.password, salt);
             
-            const update = await sqlConn.connection.query(`UPDATE users SET password='${password}' WHERE email='${result.rows[0].email}'`)
+            const update = await sqlConn.connection.query(`UPDATE campaigner SET campaigner_password='${password}' WHERE campaigner_email='${result.rows[0].email}'`)
             
             if (update.rowCount===1) console.log('Password Changed Successfully');
 

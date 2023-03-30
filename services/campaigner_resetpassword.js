@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 const campaignerresetpassword = async (email) => {
   if (!email ) throw new Error('Email Address cannot be empty');
 
-  const result = await sqlConn.connection.query(`SELECT * FROM users WHERE email LIKE '${email}'`)
+  const result = await sqlConn.connection.query(`SELECT * FROM campaigner WHERE email LIKE '${email}'`)
   if (result.rowCount === 0) throw new Error ('Campaigner Does Not Exist.')
 
   else{
@@ -19,7 +19,7 @@ const campaignerresetpassword = async (email) => {
     }
     const token = jwt.sign (payload, newSecret, {expiresIn:'15m'})
 
-    const link = `http://localhost:3300/api/change-password/${result.rows[0].email}/${token}`;
+    const link = `${process.env.IPBACKEND}/api/change-password/${result.rows[0].email}/${token}`;
     console.log(link)
 
     // -------------------------------------------------------------------------------------------------------
