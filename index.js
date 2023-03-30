@@ -66,6 +66,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 
+// Sample Api ------------------------------------------------------
+app.get("/", (req, res) => {
+  res.json({
+    message: "a simple api.",
+  });
+});
+// Sample Api ------------------------------------------------------
 app.use("/api/", indexroutes);
 
 const port = process.env.PORT || 3300;
@@ -81,13 +88,6 @@ app.listen(port, () => console.log(`Listening on port ${port} port...`));
 
 // const secretKey = "secretkey";
 
-// Sample Api ------------------------------------------------------
-app.get("/", (req, res) => {
-  res.json({
-    message: "a simple api.",
-  });
-});
-// Sample Api ------------------------------------------------------
 
 // app.post("/login", (req, res) => {
 //   const user = {
