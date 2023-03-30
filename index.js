@@ -73,7 +73,7 @@ app.get("/", (req, res) => {
   });
 });
 // Sample Api ------------------------------------------------------
-app.use("/api/", indexroutes);
+// app.use("/api/", indexroutes);
 
 const port = process.env.PORT || 3300;
 app.listen(port, () => console.log(`Listening on port ${port} port...`));
