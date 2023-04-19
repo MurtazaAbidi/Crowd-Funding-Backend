@@ -107,16 +107,17 @@ module.exports.create_campaign = async (req, res)=>{
   try {
     const createCampaignDetails = {
       c_email: req.body.email,
-      c_name: req.body.title,
-      c_description: req.body.subtitle,
-      c_factor: req.body.risk,
-      c_story: req.body.projectDescription,
-      c_image: req.body.picture,
-      c_goal: req.body.goalAmount,
+      campaign_title: req.body.title,
+      campaign_description: req.body.projectDescription,
+      campaign_goal: req.body.goalAmount,
+      campaign_milestones_data: req.body.milestonesData,
+      campaign_image: req.body.picture[0],
+      campaign_type: req.body.InvestmentType,
+      campaign_type_details: req.body.InvestmentTypeDetails,
     };
-    // console.log(createCampaignDetails)
+    console.log(createCampaignDetails)
 
-    await createcampaign(createCampaignDetails);
+    // await createcampaign(createCampaignDetails);
     return res.status(200).send('campaign Created Successfully.');
   } catch (error) {
     return res.status(500).json({ msg: `${error.message}` });

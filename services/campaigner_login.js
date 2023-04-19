@@ -14,8 +14,9 @@ const campaignerlogin = async (loginDetails) => {
         if (!validPassword){
             throw new Error ('Incorrect Password')
         } else {
-            const {email} = result.rows[0]
-            const token = jwt.sign({email:email}, process.env.jwtPrivateKey, {expiresIn:'3d'})
+            const {campaigner_email} = result.rows[0]
+            const token = jwt.sign({email:campaigner_email}, process.env.jwtPrivateKey, {expiresIn:'3d'})
+            console.log("eeeemmmmail: ", campaigner_email)
             return token;
         }
     }
