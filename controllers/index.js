@@ -4,6 +4,7 @@ const { campaignerresetpassword } = require('../services/campaigner_resetpasswor
 const { campaignersignup } = require('../services/campaigner_signup');
 const { campaignersubmitchangepassword } = require('../services/campaigner_submitchangepassword');
 const { createcampaign } = require('../services/create_campaign');
+const { showCampaign } = require('../services/show_campaign');
 
 
 module.exports.campaigner_signup = async (req, res) => {
@@ -126,11 +127,22 @@ module.exports.create_campaign = async (req, res) => {
       campaign_image: req.body.picture[0],
       campaign_type: req.body.InvestmentType,
       campaign_type_details: req.body.InvestmentTypeDetails,
+      campaign_Profit_percentage: req.body.profitPercentage,
     };
     console.log(createCampaignDetails)
 
     await createcampaign(createCampaignDetails);
     return res.status(200).send('campaign Created Successfully.');
+  } catch (error) {
+    return res.status(500).json({ msg: `${error.message}` });
+  }
+};
+
+module.exports.show_campaign = async (req, res) => {
+
+  try {
+    let response = await showCampaign();
+    return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json({ msg: `${error.message}` });
   }
