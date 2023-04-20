@@ -16,7 +16,6 @@ const campaignerlogin = async (loginDetails) => {
         } else {
             const {campaigner_email} = result.rows[0]
             const token = jwt.sign({email:campaigner_email}, process.env.jwtPrivateKey, {expiresIn:'3d'})
-            console.log("eeeemmmmail: ", campaigner_email)
             return token;
         }
     }

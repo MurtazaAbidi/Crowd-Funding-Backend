@@ -23,7 +23,7 @@ const campaignersubmitchangepassword = async (paramsDetails, changePasswordDetai
 
             const password = await bcrypt.hash(changePasswordDetails.password, salt);
             
-            const update = await sqlConn.connection.query(`UPDATE campaigner SET campaigner_password='${password}' WHERE campaigner_email='${result.rows[0].email}'`)
+            const update = await sqlConn.connection.query(`UPDATE campaigner SET campaigner_password='${password}' WHERE campaigner_email='${result.rows[0].campaigner_email}'`)
             
             if (update.rowCount===1) console.log('Password Changed Successfully');
 

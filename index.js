@@ -73,6 +73,11 @@ app.set("view engine", "ejs");
 
 // Sample Api ------------------------------------------------------
 app.get("/", (req, res) => {
+  let start_date = new Date();
+  let end_date = new Date();
+  start_date.setHours(start_date.getHours() + 5)
+  end_date.setDate(start_date.getDate() + 270)
+  console.log(end_date.getFullYear()+'-'+Number(end_date.getMonth()+1)+'-'+end_date.getDate()+" "+end_date.getHours()+':'+end_date.getMinutes()+':'+end_date.getSeconds())
   res.json({
     message: "a simple api.",
   });
