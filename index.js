@@ -6,6 +6,11 @@ var cors = require("cors");
 
 const app = express();
 require("dotenv").config();
+const corsOptionss ={
+  credentials: true,
+    origin: true,
+}
+app.use(cors(corsOptionss));
 
 if (!process.env.jwtPrivateKey) {
   console.error("FATAL ERROR: JWT-Private-Key not defined");
@@ -18,54 +23,66 @@ sqlConn.connection
   .then(() => console.log("Database Connected ..."))
   .catch((err) => console.error("Connection error", err.stack));
 
-const corsOptions = {
-  // origin: ["http://localhost:3000"],
-  origin: [`${process.env.IPFRONTEND}`],
-  credentials: true, //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: [
-    "Content-Type",
-    "Authorization",
-    "Origin",
-    "X-Requested-With",
-    "Accept",
-    "Accept-Language",
-    "Accept-Encoding",
-    "Accept-Charset",
-    "Content-Length",
-    "Access-Control-Allow-Origin",
-    "Access-Control-Allow-Credentials",
-    "Access-Control-Allow-Methods",
-    "Access-Control-Allow-Headers",
-    "Access-Control-Expose-Headers",
-    "Access-Control-Max-Age",
-    "Access-Control-Allow-Credentials",
-  ],
-  exposedHeaders: [
-    "Content-Type",
-    "Authorization",
-    "Origin",
-    "X-Requested-With",
-    "Accept",
-    "Accept-Language",
-    "Accept-Encoding",
-    "Accept-Charset",
-    "Content-Length",
-    "Access-Control-Allow-Origin",
-    "Access-Control-Allow-Credentials",
-    "Access-Control-Allow-Methods",
-    "Access-Control-Allow-Headers",
-    "Access-Control-Expose-Headers",
-    "Access-Control-Max-Age",
-    "Access-Control-Allow-Credentials",
-  ],
-};
-app.use(cors(corsOptions));
+// const corsOptions = {
+//   origin: ["http://localhost:3000", "http://localhost:3001"],
+//   // origin: [`${process.env.IPFRONTEND}`],
+//   credentials: true, //access-control-allow-credentials:true
+//   optionSuccessStatus: 200,
+//   methods: ["GET", "POST", "PUT", "DELETE"],
+//   allowedHeaders: [
+//     "Content-Type",
+//     "Authorization",
+//     "Origin",
+//     "X-Requested-With",
+//     "Accept",
+//     "Accept-Language",
+//     "Accept-Encoding",
+//     "Accept-Charset",
+//     "Content-Length",
+//     "Access-Control-Allow-Origin",
+//     "Access-Control-Allow-Credentials",
+//     "Access-Control-Allow-Methods",
+//     "Access-Control-Allow-Headers",
+//     "Access-Control-Expose-Headers",
+//     "Access-Control-Max-Age",
+//     "Access-Control-Allow-Credentials",
+//   ],
+//   exposedHeaders: [
+//     "Content-Type",
+//     "Authorization",
+//     "Origin",
+//     "X-Requested-With",
+//     "Accept",
+//     "Accept-Language",
+//     "Accept-Encoding",
+//     "Accept-Charset",
+//     "Content-Length",
+//     "Access-Control-Allow-Origin",
+//     "Access-Control-Allow-Credentials",
+//     "Access-Control-Allow-Methods",
+//     "Access-Control-Allow-Headers",
+//     "Access-Control-Expose-Headers",
+//     "Access-Control-Max-Age",
+//     "Access-Control-Allow-Credentials",
+//   ],
+// };
+// app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 
+// Sample Api ------------------------------------------------------
+app.get("/", (req, res) => {
+  let start_date = new Date();
+  let end_date = new Date();
+  start_date.setHours(start_date.getHours() + 5)
+  end_date.setDate(start_date.getDate() + 270)
+  console.log(end_date.getFullYear()+'-'+Number(end_date.getMonth()+1)+'-'+end_date.getDate()+" "+end_date.getHours()+':'+end_date.getMinutes()+':'+end_date.getSeconds())
+  res.json({
+    message: "a simple api.",
+  });
+});
+// Sample Api ------------------------------------------------------
 app.use("/api/", indexroutes);
 
 const port = process.env.PORT || 3300;
@@ -81,11 +98,6 @@ app.listen(port, () => console.log(`Listening on port ${port} port...`));
 
 // const secretKey = "secretkey";
 
-// app.get("/", (req, res) => {
-//   res.json({
-//     message: "a simple api.",
-//   });
-// });
 
 // app.post("/login", (req, res) => {
 //   const user = {

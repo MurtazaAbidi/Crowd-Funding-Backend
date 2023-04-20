@@ -5,21 +5,24 @@ const jwt = require('jsonwebtoken')
 const campaignerresetpassword = async (email) => {
   if (!email ) throw new Error('Email Address cannot be empty');
 
-  const result = await sqlConn.connection.query(`SELECT * FROM campaigner WHERE email LIKE '${email}'`)
+  const result = await sqlConn.connection.query(`SELECT * FROM campaigner WHERE campaigner_email LIKE '${email}'`)
   if (result.rowCount === 0) throw new Error ('Campaigner Does Not Exist.')
-
   else{
-    console.log(result.rows[0].email)
-    console.log(result.rows[0].password)
+    console.log(result.rows)
+    console.log(result.rows[0].campaigner_email)
+    console.log(result.rows[0].campaigner_password)
 
     //create a One time link valid for 15 minutes
-    const newSecret = process.env.jwtPrivateKey + result.rows[0].password;
+    const newSecret = process.env.jwtPrivateKey + result.rows[0].campaigner_password;
+    console.log(newSecret)
     const payload = {
-        email: result.rows[0].email, 
+        email: result.rows[0].campaigner_email, 
     }
     const token = jwt.sign (payload, newSecret, {expiresIn:'15m'})
+    console.log(token)
 
-    const link = `${process.env.IPBACKEND}/api/change-password/${result.rows[0].email}/${token}`;
+    // const link = `${req.protocol + '://' + req.get('host') + req.originalUrl}/api/change-password/${result.rows[0].campaigner_email}/${token}`;
+    const link = `${process.env.IPBACKEND}/api/change-password/${result.rows[0].campaigner_email}/${token}`;
     console.log(link)
 
     // -------------------------------------------------------------------------------------------------------
@@ -35,7 +38,7 @@ const campaignerresetpassword = async (email) => {
     
       const mailOptions = {
         from : 'elevatefyp2023@gmail.com',
-        to: `${result.rows[0].email}`,
+        to: `${result.rows[0].campaigner_email}`,
         subject: 'Reset Password Link',
         text: `${link}
         Click the Above Link to reset your Password\n

@@ -1,5 +1,5 @@
 const { campaignerchangepassword } = require('../services/campaigner_changepassword');
-const {campaignerlogin} = require('../services/campaigner_login');
+const { campaignerlogin } = require('../services/campaigner_login');
 const { campaignerresetpassword } = require('../services/campaigner_resetpassword');
 const { campaignersignup } = require('../services/campaigner_signup');
 const { campaignersubmitchangepassword } = require('../services/campaigner_submitchangepassword');
@@ -29,7 +29,6 @@ module.exports.campaigner_resetpassword = async (req, res) => {
   console.log(req.body)
   try {
     const email = req.body.email;
-
     await campaignerresetpassword(email);
     return res.status(200).send('Email Send Successfully.');
   } catch (error) {
@@ -46,7 +45,7 @@ module.exports.campaigner_changepassword = async (req, res) => {
 
     await campaignerchangepassword(changePasswordDetails);
     // return res.status(200).send('Campaigner Inserted.');
-    res.render('change-password', {email:changePasswordDetails.email})
+    res.render('change-password', { email: changePasswordDetails.email })
   } catch (error) {
     return res.status(500).json({ msg: `${error.message}` });
   }
@@ -71,7 +70,7 @@ module.exports.campaigner_submitchangepassword = async (req, res) => {
 }
 
 module.exports.campaigner_login = async (req, res) => {
-    console.log(req.body);
+  console.log(req.body);
   // console.log(req.body.email);
   // console.log(req.body.password);
   try {
@@ -81,12 +80,12 @@ module.exports.campaigner_login = async (req, res) => {
     };
 
     const token = await campaignerlogin(loginDetails);
-    
+
     // res.set('Access-Control-Allow-Origin', "*");
     // res.set('Access-Control-Allow-Credentials', 'true');
     // res.set('Access-Control-Expose-Headers', 'date,etag,access-control-allow-origin,access-control-allow-credentials');
     res.cookie('auth', token, { httpOnly: true, sameSite: true });
-    
+
     return res.header('auth', token).status(200).send('Welcome :)');
   } catch (error) {
     return res.status(500).json({ msg: `${error.message}` });
@@ -95,26 +94,40 @@ module.exports.campaigner_login = async (req, res) => {
 
 module.exports.authorize = async (req, res) => {
   try {
-    return res.status(200).json({ msg: 'User is Authorized'});
+    return res.status(200).json({ msg: 'User is Authorized' });
   } catch (error) {
     return res.status(401).json({ msg: error.message });
   }
 };
 
-module.exports.create_campaign = async (req, res)=>{
-  console.log (req.body);
+module.exports.create_campaign = async (req, res) => {
+  console.log(req.body);
   // console.log(email)
   try {
+
+    let mileStones = req.body.milestonesData;
+    let duration = 0
+    mileStones.forEach(element => {
+      duration += element.duration
+    });
+    let start_date = new Date();
+    let end_date = new Date();
+    end_date.setDate(start_date.getDate() + duration)
+
+
     const createCampaignDetails = {
       c_email: req.body.email,
-      c_name: req.body.title,
-      c_description: req.body.subtitle,
-      c_factor: req.body.risk,
-      c_story: req.body.projectDescription,
-      c_image: req.body.picture,
-      c_goal: req.body.goalAmount,
+      campaign_title: req.body.title,
+      campaign_start_time: (start_date.getFullYear()+'-'+Number(start_date.getMonth()+1)+'-'+start_date.getDate()+" "+start_date.getHours()+':'+start_date.getMinutes()+':'+start_date.getSeconds()),
+      campaign_end_time: (end_date.getFullYear()+'-'+Number(end_date.getMonth()+1)+'-'+end_date.getDate()+" "+end_date.getHours()+':'+end_date.getMinutes()+':'+end_date.getSeconds()),
+      campaign_description: req.body.projectDescription,
+      campaign_goal: req.body.goalAmount,
+      campaign_milestones_data: req.body.milestonesData,
+      campaign_image: req.body.picture[0],
+      campaign_type: req.body.InvestmentType,
+      campaign_type_details: req.body.InvestmentTypeDetails,
     };
-    // console.log(createCampaignDetails)
+    console.log(createCampaignDetails)
 
     await createcampaign(createCampaignDetails);
     return res.status(200).send('campaign Created Successfully.');
