@@ -11,6 +11,10 @@ router.get ('/change-password/:id/:token', indexcontroller.campaigner_changepass
 router.post ('/change-password/:id/:token', indexcontroller.campaigner_submitchangepassword);
 router.get ('/authorize',auth,  indexcontroller.authorize);
 router.post ('/createcampaign', auth, indexcontroller.create_campaign);
+router.get ('/showcampaigns', auth, indexcontroller.show_campaign);
+router.get ('/getcampaigndetails/:id', auth, indexcontroller.get_campaign_details);
+router.get ('/getcomments/:id', auth, indexcontroller.get_comments);
+router.post ('/addcomment', auth, indexcontroller.add_comment);
 router.get ('/logout', auth, indexcontroller.logout);
 
 module.exports = router;
