@@ -1,3 +1,4 @@
+const { addComment } = require('../services/add_comment');
 const { campaignerchangepassword } = require('../services/campaigner_changepassword');
 const { campaignerlogin } = require('../services/campaigner_login');
 const { campaignerresetpassword } = require('../services/campaigner_resetpassword');
@@ -140,7 +141,7 @@ module.exports.create_campaign = async (req, res) => {
 };
 
 module.exports.show_campaign = async (req, res) => {
-
+  
   try {
     let response = await showCampaign();
     return res.status(200).json(response);
@@ -155,6 +156,29 @@ module.exports.get_campaign_details = async (req, res) => {
     const id = req.params.id;
     let response = await getCampaignDetails(id);
     return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json({ msg: `${error.message}` });
+  }
+};
+
+
+module.exports.add_comment = async (req, res) => {
+  console.log(req.body);
+  // console.log(email)
+  try {
+
+    let date = new Date();
+
+    const addCommentData = {
+      comment_msg: req.body.comment_msg,
+      campaign_id: req.body.campaign_id,
+      comment_date: (date.getFullYear()+'-'+Number(date.getMonth()+1)+'-'+date.getDate()+" "+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds()),
+      campaigner_id: req.body.campaigner_id,
+    };
+    console.log(addCommentData)
+
+    await addComment(addCommentData);
+    return res.status(200).send('campaign Created Successfully.');
   } catch (error) {
     return res.status(500).json({ msg: `${error.message}` });
   }
