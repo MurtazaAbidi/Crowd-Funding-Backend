@@ -8,6 +8,7 @@ const { createcampaign } = require('../services/create_campaign');
 const { getCampaignDetails } = require('../services/get_campaign_details');
 const { getComments } = require('../services/get_comments');
 const { showCampaign } = require('../services/show_campaign');
+const { showMyCampaign } = require('../services/show_my_campaign');
 
 
 module.exports.campaigner_signup = async (req, res) => {
@@ -145,6 +146,17 @@ module.exports.show_campaign = async (req, res) => {
   
   try {
     let response = await showCampaign();
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json({ msg: `${error.message}` });
+  }
+};
+
+module.exports.show_my_campaign = async (req, res) => {
+  console.log(req.body)
+  try {
+    const email = req.body.email;
+    let response = await showMyCampaign(email);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json({ msg: `${error.message}` });
