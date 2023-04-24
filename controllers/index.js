@@ -7,6 +7,7 @@ const { campaignersubmitchangepassword } = require('../services/campaigner_submi
 const { createcampaign } = require('../services/create_campaign');
 const { getCampaignDetails } = require('../services/get_campaign_details');
 const { getComments } = require('../services/get_comments');
+const { getProfile } = require('../services/get_profile');
 const { showCampaign } = require('../services/show_campaign');
 const { showMyCampaign } = require('../services/show_my_campaign');
 const { updateProfile } = require('../services/update_profile');
@@ -165,7 +166,6 @@ module.exports.show_my_campaign = async (req, res) => {
 };
 
 module.exports.get_campaign_details = async (req, res) => {
-
   try {
     const id = req.params.id;
     let response = await getCampaignDetails(id);
@@ -203,6 +203,15 @@ module.exports.add_comment = async (req, res) => {
 
     await addComment(addCommentData);
     return res.status(200).send('campaign Created Successfully.');
+  } catch (error) {
+    return res.status(500).json({ msg: `${error.message}` });
+  }
+};
+
+module.exports.get_profile = async (req, res) => {
+  try {
+    let response = await getProfile(req.body.email);
+    return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json({ msg: `${error.message}` });
   }
