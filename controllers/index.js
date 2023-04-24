@@ -9,6 +9,7 @@ const { getCampaignDetails } = require('../services/get_campaign_details');
 const { getComments } = require('../services/get_comments');
 const { showCampaign } = require('../services/show_campaign');
 const { showMyCampaign } = require('../services/show_my_campaign');
+const { updateProfile } = require('../services/update_profile');
 
 
 module.exports.campaigner_signup = async (req, res) => {
@@ -202,6 +203,27 @@ module.exports.add_comment = async (req, res) => {
 
     await addComment(addCommentData);
     return res.status(200).send('campaign Created Successfully.');
+  } catch (error) {
+    return res.status(500).json({ msg: `${error.message}` });
+  }
+};
+
+module.exports.update_profile = async (req, res) => {
+  // console.log(email)
+  try {
+
+    const profileData = {
+      email: req.body.email,
+      campaigner_name: req.body.campaigner_name,
+      campaigner_cnic: req.body.campaigner_cnic,
+      campaigner_contact: req.body.campaigner_contact,
+      campaigner_image: req.body.campaigner_image,
+      office_address: req.body.office_address,
+    };
+    console.log(profileData)
+
+    await updateProfile(profileData);
+    return res.status(200).send('Campaigner Updated Successfully.');
   } catch (error) {
     return res.status(500).json({ msg: `${error.message}` });
   }

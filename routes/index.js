@@ -16,6 +16,7 @@ router.get ('/showmycampaigns', auth, indexcontroller.show_my_campaign);
 router.get ('/getcampaigndetails/:id', auth, indexcontroller.get_campaign_details);
 router.get ('/getcomments/:id', auth, indexcontroller.get_comments);
 router.post ('/addcomment', auth, indexcontroller.add_comment);
+router.put ('/updateprofile', auth, indexcontroller.update_profile);
 router.get ('/logout', auth, indexcontroller.logout);
 
 module.exports = router;
