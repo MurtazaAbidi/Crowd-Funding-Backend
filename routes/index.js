@@ -2,7 +2,7 @@ const express = require('express');
 const indexcontroller = require('../controllers/index');
 const auth = require('../middleware/auth');
 
-const   router = express.Router();
+const router = express.Router();
 
 router.post ('/login', indexcontroller.campaigner_login);
 router.post ('/signup', indexcontroller.campaigner_signup);
