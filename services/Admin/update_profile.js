@@ -1,4 +1,4 @@
-const sqlConn = require('../db/db_connection');
+const sqlConn = require('../../db/db_connection');
 
 const updateProfile = async (profileData) => {
     if (!profileData.campaigner_name || !profileData.campaigner_cnic || !profileData.campaigner_contact || !profileData.office_address) throw new Error('Required fields cannot be empty');

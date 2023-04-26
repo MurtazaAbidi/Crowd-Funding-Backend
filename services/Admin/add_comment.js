@@ -1,4 +1,4 @@
-const sqlConn = require('../db/db_connection');
+const sqlConn = require('../../db/db_connection');
 
 const addComment = async (addCommentData) => {
   if (!addCommentData.comment_msg || !addCommentData.campaign_id || !addCommentData.comment_date || !addCommentData.campaigner_id ) throw new Error('Required fields cannot be empty');

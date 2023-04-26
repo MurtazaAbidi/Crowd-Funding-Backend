@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer')
-const sqlConn = require('../db/db_connection');
+const sqlConn = require('../../db/db_connection');
 const jwt = require('jsonwebtoken')
 
 const campaignerresetpassword = async (email) => {

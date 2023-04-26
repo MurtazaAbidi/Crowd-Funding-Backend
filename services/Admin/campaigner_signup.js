@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const sqlConn = require('../db/db_connection');
+const sqlConn = require('../../db/db_connection');
 
 const campaignersignup = async (signupDetails) => {
   if (!signupDetails.name || !signupDetails.email || !signupDetails.password || !signupDetails.phone || !signupDetails.cnic || !signupDetails.officeAddress ) throw new Error('Required fields cannot be empty');

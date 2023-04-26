@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
 const jwt = require ('jsonwebtoken')
-const sqlConn = require('../db/db_connection')
+const sqlConn = require('../../db/db_connection');
 
 const campaignersubmitchangepassword = async (paramsDetails, changePasswordDetails) => {
     // console.log(changePasswordDetails)
