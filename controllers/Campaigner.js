@@ -1,16 +1,16 @@
-const { addComment } = require('../services/add_comment');
-const { campaignerchangepassword } = require('../services/campaigner_changepassword');
-const { campaignerlogin } = require('../services/campaigner_login');
-const { campaignerresetpassword } = require('../services/campaigner_resetpassword');
-const { campaignersignup } = require('../services/campaigner_signup');
-const { campaignersubmitchangepassword } = require('../services/campaigner_submitchangepassword');
-const { createcampaign } = require('../services/create_campaign');
-const { getCampaignDetails } = require('../services/get_campaign_details');
-const { getComments } = require('../services/get_comments');
-const { getProfile } = require('../services/get_profile');
-const { showCampaign } = require('../services/show_campaign');
-const { showMyCampaign } = require('../services/show_my_campaign');
-const { updateProfile } = require('../services/update_profile');
+const { addComment } = require('../services/Campaigner/add_comment');
+const { campaignerchangepassword } = require('../services/Campaigner/campaigner_changepassword');
+const { campaignerlogin } = require('../services/Campaigner/campaigner_login');
+const { campaignerresetpassword } = require('../services/Campaigner/campaigner_resetpassword');
+const { campaignersignup } = require('../services/Campaigner/campaigner_signup');
+const { campaignersubmitchangepassword } = require('../services/Campaigner/campaigner_submitchangepassword');
+const { createcampaign } = require('../services/Campaigner/create_campaign');
+const { getCampaignDetails } = require('../services/Campaigner/get_campaign_details');
+const { getComments } = require('../services/Campaigner/get_comments');
+const { getProfile } = require('../services/Campaigner/get_profile');
+const { showCampaign } = require('../services/Campaigner/show_campaign');
+const { showMyCampaign } = require('../services/Campaigner/show_my_campaign');
+const { updateProfile } = require('../services/Campaigner/update_profile');
 
 
 module.exports.campaigner_signup = async (req, res) => {

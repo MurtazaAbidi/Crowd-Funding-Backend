@@ -1,6 +1,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const indexroutes = require("./routes/index");
+const campaigner_routes = require("./routes/campaigner");
+const admin_routes = require("./routes/admin");
 const sqlConn = require("./db/db_connection");
 var cors = require("cors");
 
@@ -84,7 +85,8 @@ app.get("/", (req, res) => {
   });
 });
 // Sample Api ------------------------------------------------------
-app.use("/api/campaigner", indexroutes);
+app.use("/api/campaigner", campaigner_routes);
+app.use("/api/admin", admin_routes);
 
 const port = process.env.PORT || 3300;
 app.listen(port, () => console.log(`Listening on port ${port} port...`));

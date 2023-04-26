@@ -1,5 +1,5 @@
 const express = require('express');
-const indexcontroller = require('../controllers/index');
+const indexcontroller = require('../controllers/Campaigner');
 const auth = require('../middleware/auth');
 
 const router = express.Router();

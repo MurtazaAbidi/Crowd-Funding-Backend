@@ -1,4 +1,4 @@
-const sqlConn = require('../db/db_connection');
+const sqlConn = require('../../db/db_connection');
 
 const showMyCampaign = async (email) => {
 

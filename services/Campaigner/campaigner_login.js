@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require ('jsonwebtoken')
-const sqlConn = require('../db/db_connection')
+const sqlConn = require('../../db/db_connection');
 
 const campaignerlogin = async (loginDetails) => {
     if (!loginDetails.email || !loginDetails)throw new Error ('Required fields cannot be empty')

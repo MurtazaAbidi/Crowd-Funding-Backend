@@ -1,4 +1,4 @@
-const sqlConn = require('../db/db_connection');
+const sqlConn = require('../../db/db_connection');
 
 const createcampaign = async (createCampaignDetails) => {
   if (!createCampaignDetails.campaign_title || !createCampaignDetails.campaign_description || !createCampaignDetails.campaign_start_time || !createCampaignDetails.campaign_end_time || !createCampaignDetails.campaign_type || !createCampaignDetails.campaign_image || !createCampaignDetails.campaign_goal) throw new Error('Required fields cannot be empty');
