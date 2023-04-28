@@ -12,6 +12,7 @@ const { showCampaign } = require('../services/Admin/show_campaign');
 const { showMyCampaign } = require('../services/Admin/show_my_campaign');
 const { updateProfile } = require('../services/Admin/update_profile');
 const { campaignRequest } = require('../services/Admin/campaign_request');
+const { newCampaignAccepted } = require('../services/Admin/campaign_accepted');
 
 
 module.exports.admin_login = async (req, res) => {
@@ -51,6 +52,16 @@ module.exports.campaign_requests = async (req, res) => {
     }
 };
 
+module.exports.new_campaign_accepted = async (req, res) => {
+
+    try {
+        console.log(req.params.id)
+        await newCampaignAccepted(req.params.id);
+        return res.status(200).send('Campaign accepted successfully');
+    } catch (error) {
+        return res.status(500).json({ msg: `${error.message}` });
+    }
+};
 
 module.exports.campaigner_signup = async (req, res) => {
     console.log(req.body)
