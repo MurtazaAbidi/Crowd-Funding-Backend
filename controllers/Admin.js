@@ -11,6 +11,7 @@ const { getProfile } = require('../services/Admin/get_profile');
 const { showCampaign } = require('../services/Admin/show_campaign');
 const { showMyCampaign } = require('../services/Admin/show_my_campaign');
 const { updateProfile } = require('../services/Admin/update_profile');
+const { campaignRequest } = require('../services/Admin/campaign_request');
 
 
 module.exports.admin_login = async (req, res) => {
@@ -37,6 +38,16 @@ module.exports.authorize = async (req, res) => {
         return res.status(200).json({ msg: 'User is Authorized' });
     } catch (error) {
         return res.status(401).json({ msg: error.message });
+    }
+};
+
+module.exports.campaign_requests = async (req, res) => {
+
+    try {
+        let response = await campaignRequest();
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({ msg: `${error.message}` });
     }
 };
 
