@@ -12,7 +12,8 @@ const { showCampaign } = require('../services/Admin/show_campaign');
 const { showMyCampaign } = require('../services/Admin/show_my_campaign');
 const { updateProfile } = require('../services/Admin/update_profile');
 const { campaignRequest } = require('../services/Admin/campaign_request');
-const { newCampaignAccepted } = require('../services/Admin/campaign_accepted');
+const { newCampaignAccepted } = require('../services/Admin/new_campaign_accepted');
+const { newCampaignRejected } = require('../services/Admin/new_campaign_rejected');
 
 
 module.exports.admin_login = async (req, res) => {
@@ -42,8 +43,7 @@ module.exports.authorize = async (req, res) => {
     }
 };
 
-module.exports.campaign_requests = async (req, res) => {
-
+module.exports.new_campaign_requests = async (req, res) => {
     try {
         let response = await campaignRequest();
         return res.status(200).json(response);
@@ -53,11 +53,23 @@ module.exports.campaign_requests = async (req, res) => {
 };
 
 module.exports.new_campaign_accepted = async (req, res) => {
-
     try {
         console.log(req.params.id)
         await newCampaignAccepted(req.params.id);
         return res.status(200).send('Campaign accepted successfully');
+    } catch (error) {
+        return res.status(500).json({ msg: `${error.message}` });
+    }
+};
+
+module.exports.new_campaign_rejected = async (req, res) => {
+    try {
+        const rejectedCampaignData = {
+            id: req.body.id,
+            rejectedMessage: req.body.rejectedMessage,
+        };
+        await newCampaignRejected(rejectedCampaignData);
+        return res.status(200).send('Campaign rejected successfully');
     } catch (error) {
         return res.status(500).json({ msg: `${error.message}` });
     }
