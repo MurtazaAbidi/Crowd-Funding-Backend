@@ -15,6 +15,7 @@ const { campaignRequest } = require('../services/Admin/campaign_request');
 const { newCampaignAccepted } = require('../services/Admin/new_campaign_accepted');
 const { newCampaignRejected } = require('../services/Admin/new_campaign_rejected');
 const { campaignerList } = require('../services/Admin/campaigner_list');
+const { investorList } = require('../services/Admin/investor_list');
 
 
 module.exports.admin_login = async (req, res) => {
@@ -77,9 +78,17 @@ module.exports.new_campaign_rejected = async (req, res) => {
 };
 
 module.exports.campaigner_list = async (req, res) => {
-
     try {
         let response = await campaignerList();
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({ msg: `${error.message}` });
+    }
+};
+
+module.exports.investor_list = async (req, res) => {
+    try {
+        let response = await investorList();
         return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({ msg: `${error.message}` });
