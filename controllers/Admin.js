@@ -15,6 +15,7 @@ const { campaignRequest } = require('../services/Admin/campaign_request');
 const { newCampaignAccepted } = require('../services/Admin/new_campaign_accepted');
 const { newCampaignRejected } = require('../services/Admin/new_campaign_rejected');
 const { campaignerList } = require('../services/Admin/campaigner_list');
+const { investorList } = require('../services/Admin/investor_list');
 
 
 module.exports.admin_login = async (req, res) => {
