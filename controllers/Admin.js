@@ -77,7 +77,6 @@ module.exports.new_campaign_rejected = async (req, res) => {
 };
 
 module.exports.campaigner_list = async (req, res) => {
-
     try {
         let response = await campaignerList();
         return res.status(200).json(response);
@@ -87,7 +86,6 @@ module.exports.campaigner_list = async (req, res) => {
 };
 
 module.exports.investor_list = async (req, res) => {
-
     try {
         let response = await investorList();
         return res.status(200).json(response);
