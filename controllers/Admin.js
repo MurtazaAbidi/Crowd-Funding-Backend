@@ -86,6 +86,16 @@ module.exports.campaigner_list = async (req, res) => {
     }
 };
 
+module.exports.investor_list = async (req, res) => {
+
+    try {
+        let response = await investorList();
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({ msg: `${error.message}` });
+    }
+};
+
 module.exports.campaigner_signup = async (req, res) => {
     console.log(req.body)
     try {
