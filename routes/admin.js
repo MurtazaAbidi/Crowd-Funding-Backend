@@ -11,4 +11,5 @@ router.get ('/newcampaignaccepted/:id', auth, indexcontroller.new_campaign_accep
 router.post ('/newcampaignrejected', auth, indexcontroller.new_campaign_rejected);
 router.get ('/campaignerlist', auth, indexcontroller.campaigner_list);
 router.get ('/investorlist', auth, indexcontroller.investor_list);
+router.put ('/accepttimeextendrequest:id', auth, indexcontroller.accept_time_extend_request);
 module.exports = router;

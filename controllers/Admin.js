@@ -16,6 +16,7 @@ const { newCampaignAccepted } = require('../services/Admin/new_campaign_accepted
 const { newCampaignRejected } = require('../services/Admin/new_campaign_rejected');
 const { campaignerList } = require('../services/Admin/campaigner_list');
 const { investorList } = require('../services/Admin/investor_list');
+const { acceptTimeExtendRequest } = require('../services/Admin/accept_time_extend_request');
 
 
 module.exports.admin_login = async (req, res) => {
@@ -90,6 +91,15 @@ module.exports.investor_list = async (req, res) => {
     try {
         let response = await investorList();
         return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({ msg: `${error.message}` });
+    }
+};
+
+module.exports.accept_time_extend_request = async (req, res) => {
+    try {
+        await acceptTimeExtendRequest(req.params.id);
+        return res.status(200).send('Campaign Time Extended for 15 days successfully');
     } catch (error) {
         return res.status(500).json({ msg: `${error.message}` });
     }
