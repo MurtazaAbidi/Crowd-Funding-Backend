@@ -1,4 +1,5 @@
 const { addComment } = require('../services/Campaigner/add_comment');
+const { campaignExtensionRequest } = require('../services/Campaigner/campaign_extension_request');
 const { campaignerchangepassword } = require('../services/Campaigner/campaigner_changepassword');
 const { campaignerlogin } = require('../services/Campaigner/campaigner_login');
 const { campaignerresetpassword } = require('../services/Campaigner/campaigner_resetpassword');
@@ -235,6 +236,16 @@ module.exports.update_profile = async (req, res) => {
     return res.status(200).send('Campaigner Updated Successfully.');
   } catch (error) {
     return res.status(500).json({ msg: `${error.message}` });
+  }
+};
+
+module.exports.campaign_extension_request = async (req, res) => {
+  try {
+
+    await campaignExtensionRequest(req.params.id);
+    return res.status(200).send("Campaigner Successfully Logged out");
+  } catch (error) {
+    return res.status(401).json({ msg: error.message });
   }
 };
 
