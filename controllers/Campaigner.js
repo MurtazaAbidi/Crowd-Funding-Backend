@@ -243,7 +243,7 @@ module.exports.campaign_extension_request = async (req, res) => {
   try {
 
     await campaignExtensionRequest(req.params.id);
-    return res.status(200).send("Campaigner Successfully Logged out");
+    return res.status(200).send("Campaign Time Extend Request Sent Successfully");
   } catch (error) {
     return res.status(401).json({ msg: error.message });
   }
