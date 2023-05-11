@@ -39,9 +39,9 @@ const createcampaign = async (createCampaignDetails) => {
   
   else if (createCampaignDetails.campaign_type === 'reward') {
     console.log(createCampaignDetails.campaign_type_details)
-    let insert_reward = `INSERT INTO campaign_reward ( campaign_reward_name, campaign_reward_amount, campaign_id) VALUES `
+    let insert_reward = `INSERT INTO campaign_reward ( campaign_reward_name, campaign_reward_amount,campaign_reward_description, campaign_id) VALUES `
     createCampaignDetails.campaign_type_details.forEach((element, index) => {
-      insert_reward += `( '${element[0]}', '${Number(element[1])}', ${campaign_id} )`;
+      insert_reward += `( '${element[0]}', '${Number(element[1])}', '${element[2]}', ${campaign_id} )`;
       if (index < createCampaignDetails.campaign_type_details.length - 1) {
         insert_reward += ',';
       }
@@ -52,9 +52,9 @@ const createcampaign = async (createCampaignDetails) => {
   
   else if (createCampaignDetails.campaign_type === 'equity') {
     console.log(createCampaignDetails.campaign_type_details)
-    let insert_equity = `INSERT INTO campaign_equity ( campaign_equity_percentage, campaign_equity_amount, campaign_id) VALUES `
+    let insert_equity = `INSERT INTO campaign_equity ( campaign_equity_percentage, campaign_equity_amount, campaign_equity_description, campaign_id) VALUES `
     createCampaignDetails.campaign_type_details.forEach((element, index) => {
-      insert_equity += `( '${element[0]}', '${Number(element[1])}', ${campaign_id} )`;
+      insert_equity += `( '${element[0]}', '${Number(element[1])}', '${element[2]}', ${campaign_id} )`;
       if (index < createCampaignDetails.campaign_type_details.length - 1) {
         insert_equity += ',';
       }
