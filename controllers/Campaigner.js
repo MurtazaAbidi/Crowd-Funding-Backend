@@ -139,7 +139,7 @@ module.exports.create_campaign = async (req, res) => {
     console.log(createCampaignDetails)
 
     await createcampaign(createCampaignDetails);
-    return res.status(200).send('campaign Created Successfully.');
+    return res.status(200).send('Campaign Created Request Sent Successfully to Admin.');
   } catch (error) {
     return res.status(500).json({ msg: `${error.message}` });
   }

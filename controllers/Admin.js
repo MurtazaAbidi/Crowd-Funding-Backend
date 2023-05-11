@@ -17,6 +17,11 @@ const { newCampaignRejected } = require('../services/Admin/new_campaign_rejected
 const { campaignerList } = require('../services/Admin/campaigner_list');
 const { investorList } = require('../services/Admin/investor_list');
 const { acceptTimeExtendRequest } = require('../services/Admin/accept_time_extend_request');
+const { timeExtensionRequest } = require('../services/Admin/time_extension_request');
+const { showRejectedTimeExtensionRequests } = require('../services/Admin/show_rejected_time_extension_requests');
+const { rejectTimeExtendRequest } = require('../services/Admin/reject_time_extend_request');
+const { acceptedTimeExtensionRequests } = require('../services/Admin/acceptedTimeExtensionRequests');
+const { rejectedNewCampaignsRequest } = require('../services/Admin/rejected_new_campaigns_request');
 
 
 module.exports.admin_login = async (req, res) => {
@@ -96,10 +101,55 @@ module.exports.investor_list = async (req, res) => {
     }
 };
 
+module.exports.time_extension_requests = async (req, res) => {
+    try {
+        let response = await timeExtensionRequest();
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({ msg: `${error.message}` });
+    }
+};
+
+module.exports.accepted_time_extension_requests = async (req, res) => {
+    try {
+        let response = await acceptedTimeExtensionRequests();
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({ msg: `${error.message}` });
+    }
+};
+
 module.exports.accept_time_extend_request = async (req, res) => {
     try {
         await acceptTimeExtendRequest(req.params.id);
         return res.status(200).send('Campaign Time Extended for 15 days successfully');
+    } catch (error) {
+        return res.status(500).json({ msg: `${error.message}` });
+    }
+};
+
+module.exports.reject_time_extend_request = async (req, res) => {
+    try {
+        await rejectTimeExtendRequest(req.body.id, req.body.rejectedMessage);
+        return res.status(200).send('Time Extended Request Rejected Successfully');
+    } catch (error) {
+        return res.status(500).json({ msg: `${error.message}` });
+    }
+};
+
+module.exports.rejected_new_campaigns_request = async (req, res) => {
+    try {
+        let response = await rejectedNewCampaignsRequest();
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({ msg: `${error.message}` });
+    }
+};
+
+module.exports.show_rejected_time_extension_requests = async (req, res) => {
+    try {
+        let response = await showRejectedTimeExtensionRequests();
+        return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({ msg: `${error.message}` });
     }
@@ -218,16 +268,7 @@ module.exports.show_campaign = async (req, res) => {
     }
 };
 
-module.exports.show_my_campaign = async (req, res) => {
-    console.log(req.body)
-    try {
-        const email = req.body.email;
-        let response = await showMyCampaign(email);
-        return res.status(200).json(response);
-    } catch (error) {
-        return res.status(500).json({ msg: `${error.message}` });
-    }
-};
+
 
 module.exports.get_campaign_details = async (req, res) => {
     try {
