@@ -18,6 +18,7 @@ router.get ('/getcomments/:id', auth, indexcontroller.get_comments);
 router.post ('/addcomment', auth, indexcontroller.add_comment);
 router.get ('/profile', auth, indexcontroller.get_profile);
 router.put ('/updateprofile', auth, indexcontroller.update_profile);
-router.get ('/logout', auth, indexcontroller.logout);
+router.get ('/campaignextensionrequest/:id', auth, indexcontroller.campaign_extension_request);
+router.get ('/logout/:id', auth, indexcontroller.logout);
 
 module.exports = router;

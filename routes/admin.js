@@ -11,5 +11,11 @@ router.get ('/newcampaignaccepted/:id', auth, indexcontroller.new_campaign_accep
 router.post ('/newcampaignrejected', auth, indexcontroller.new_campaign_rejected);
 router.get ('/campaignerlist', auth, indexcontroller.campaigner_list);
 router.get ('/investorlist', auth, indexcontroller.investor_list);
-router.put ('/accepttimeextendrequest:id', auth, indexcontroller.accept_time_extend_request);
+router.get ('/timeextensionrequests', auth, indexcontroller.time_extension_requests);
+router.get ('/acceptedtimeextensionrequests', auth, indexcontroller.accepted_time_extension_requests); 
+router.get ('/accepttimeextendrequest/:id', auth, indexcontroller.accept_time_extend_request); 
+router.post ('/rejecttimeextendrequest', auth, indexcontroller.reject_time_extend_request); 
+router.get ('/rejectednewcampaignsrequest', auth, indexcontroller.rejected_new_campaigns_request); 
+router.get ('/showrejectedtimeextensionrequests', auth, indexcontroller.show_rejected_time_extension_requests); // show rejected timeextension requests
+router.get ('/logout', auth, indexcontroller.logout); 
 module.exports = router;
